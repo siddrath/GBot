@@ -13,7 +13,7 @@ import subprocess
 bot = commands.Bot(command_prefix="G.")
 bot.remove_command('help')
 
-TOKEN = "NDkzNDcwODkzMzMxNDQ3ODIw.DtSgag.0F8JwjI0DrU34eCIyNIIEFd9v8o"
+TOKEN = ""
 
 
 
