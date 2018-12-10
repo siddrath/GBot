@@ -230,41 +230,6 @@ async def bbff(self, ctx):
 
 
 
-class BAmath():
-
-    @commands.command()
-    async def fact(self, ctx, num: int):
-        ': Get factorial of any number '
-        if num < 0:
-            await ctx.send('Sorry, factorial does not exist for negative numbers')
-        elif num == 0:
-            await ctx.send('The factorial of 0 is 1')
-        else:
-            from math import factorial
-            await ctx.send(f'''The factorial of {num} is : ```{factorial(num)}```''')
-    @commands.command()
-    async def add(self, ctx, num: int, num2: int):
-        ': Add two numbers'
-        await ctx.send(num + num2)
-
-    @commands.command()
-    async def factor(self, ctx, num: int):
-        ': Find prime factors '
-        await ctx.send('Factors are:')
-        i = 1
-        while i <= num:
-            k = 0
-            if (num % i) == 0:
-                j = 1
-                while j <= i:
-                    if (i % j) == 0:
-                        k = k + 1
-                    j = j + 1
-                if k == 2:
-                    await ctx.send('`1`')
-                    await ctx.send(f'''`{i}`''')
-            i = i + 1
-
 
 class BAdmin():
 
@@ -481,6 +446,5 @@ async def on_ready():
 
 
 bot.add_cog(BAdmin())
-bot.add_cog(BAmath())
 bot.add_cog(Bot())
 bot.run(os.getenv('TOKEN'))
