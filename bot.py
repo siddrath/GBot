@@ -12,6 +12,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 bot = commands.Bot(description='GBot', command_prefix=commands.when_mentioned_or('G.'))
 
+bot.remove_command('help')
+
 
 class Bot():
 
