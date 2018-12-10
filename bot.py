@@ -71,7 +71,7 @@ class Basics():
         embed.set_thumbnail(url=f'''{bot.user.avatar_url}''')
         await ctx.send(embed=embed)
         
-    @bot.command(pass_context=True, aliases=['whois'])
+    @commands.command(pass_context=True, aliases=['whois'])
     async def userinfo(ctx, member: discord.Member = None):
 
         name="user",
