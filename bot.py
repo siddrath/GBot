@@ -10,7 +10,7 @@ import random
 from discord.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
-bot = commands.Bot(description='BAsics can do a lot more.....', command_prefix=commands.when_mentioned_or('f!'))
+bot = commands.Bot(description='GBot...', command_prefix=commands.when_mentioned_or('G.'))
 
 
 class BAsics():
@@ -340,9 +340,9 @@ async def on_ready():
     bot.load_extension("fun")
     bot.load_extension("search")
     bot.load_extension('ExampleRepl')
-    options = ('help via f!help', 'to !👑!Fire Feathers!👑!#8265', f'on {len(bot.guilds)} servers')
+    options = ('help via f!help', 'to Gavyn S. ✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981', f'on {len(bot.guilds)} servers')
     while True:
-        await bot.change_presence(activity=discord.Streaming(name=random.choice(options), url='https://www.twitch.tv/cohhcarnage'))
+        await bot.change_presence(activity=discord.Streaming(name=random.choice(options), url='https://www.twitch.tv/gavynlamar05'))
         await asyncio.sleep(10)
 
 
