@@ -23,12 +23,12 @@ class Basics():
         m = await ctx.send('**Pong!**')
         time = (m.created_at - t1).total_seconds() * 1000
         await m.edit(content='**Pong! Took: {}ms**'.format(int(time)))
-        await ctx.message.delete()
 
     @commands.command(pass_contex=True)
     async def invite(self, ctx):
         ': Invite me '
-        await ctx.send('https://discordapp.com/oauth2/authorize?client_id=394080286461263873&scope=bot&permissions=1543687243')
+        embed=discord.Embed (title="So you want me huh?", colour=discord.Colour.dark_blue(), description='[Invite me](https://discordapp.com/api/oauth2/authorize?client_id=493470893331447820&scope=bot)')
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def uptime(self,ctx):
