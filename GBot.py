@@ -1,33 +1,24 @@
-import discord, aiohttp, time, random, datetime, platform, pkg_resources
+import discord
 from discord.ext import commands
-from discord import Game
 import datetime
 import time
+import asyncio
+from discord import Game
 
 TOKEN = "NDkzNDcwODkzMzMxNDQ3ODIw.DtSgag.0F8JwjI0DrU34eCIyNIIEFd9v8o"
 
-bot = commands.Bot("G.") or ("<@493470893331447820>")
+bot = commands.Bot('G.')
 bot.remove_command('help')
 
 
 #bot.event's
-
-@bot.event
-async def on_ready():
-    print("logged in as")
-    print(client.user.name)
-    print("----------")
+    
 
 #@bot.event
 #async def on_member_join(member: discord.Member):
     #fmt = 'Welcome {0.mention} to {1.name}!'
     #Guild = Guild.member
     #await client.send_message(Guild, fmt.format(member, Guild))
-
-@bot.event
-async def on_ready():
-    await bot.change_presence (activity = discord.Game(name = "Made by: Gavyn S.✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981"))
-
 
 @bot.event
 async def on_ready():
@@ -38,23 +29,23 @@ async def on_ready():
     #await ctx.send(f'''Welcome to {ctx.guild.name}!''')
 
 #@bot.command        
-                
-@bot.command()
+
+@bot.command(aliases=['cmds'])
 async def commands(ctx):
     member = ctx.author
     embed = discord.Embed(title="Prefix", colour=discord.Colour.dark_blue(), description="G.")
-    embed.add_field(name='Commands', value='gbot \nserverinfo \nuserinfo \nhelp \n joined_at \nstats \nping \ninvme \navatar \npoll \nvote \nservers')
+    embed.add_field(name='Commands', value='gbot \nserverinfo \nuserinfo \nhelp \njoined_at \nstats \nping \ninvme \navatar \npoll \nvote \nbug_report \nfeedback \nbbff')
     embed.add_field(name='Admin/Mod Commands',value='ban \nkick \npurge \nswarn - soft warn \nwarn - reg. warn \n add_role \nmute \nunmute')
-    await member.send(embed=embed)
     await ctx.send ('Check your :regional_indicator_d: :regional_indicator_m:')
+    await member.send(embed=embed)
 
 
 @bot.command()
 async def gbot(ctx):
     embed = discord.Embed(title="G Bot", colour=discord.Colour.dark_blue(),description="Created by: <@293800689266851850>", inline=False)
     embed.set_thumbnail(url=f'''{bot.user.avatar_url}''')
-    embed.add_field(name='Contributor(s)', value="<@217462890364403712> \n------------ \n<@411496838550781972>", inline=False)
-    embed.add_field(name='Version', value="0.5.0 [ALPHA]")
+    embed.add_field(name='Contributor(s)', value="ir3#3333 \n------------ \nGarry#2508", inline=False)
+    embed.add_field(name='Version', value="1.0.0 [ALPHA]")
     embed.set_footer(text = "Made with python 3.6.6", icon_url = 'https://cdn.discordapp.com/emojis/490607334876381204.png?v=1')
     await ctx.send(embed=embed)
 
@@ -67,7 +58,7 @@ async def serverinfo(ctx):
                           timestamp=datetime.datetime.utcnow())
     embed.set_thumbnail(url=f'''{guild.icon_url}''')
     embed.add_field(name='Server Created At :', value=f'''  {guild.created_at}''', inline=False)
-    embed.add_field(name='Created by :', value=f'''{guild.owner.mention}''', inline=False)
+    embed.add_field(name='Created by :', value=f'''{guild.owner}''', inline=False)
     embed.add_field(name='Region :', value=f'''  {guild.region}''', inline=False)
     embed.add_field(name='Server ID :', value=f'''{guild.id}''', inline=False)
     embed.add_field(name='Server Members :', value=f'''  {len(guild.members)}''', inline=False)
@@ -140,9 +131,10 @@ async def stats(ctx):
         ''': Get the info about my servers'''
         total = sum(1 for m in set(ctx.bot.get_all_members()) if m.status != discord.Status.offline)
         embed = discord.Embed(title=f'''Count''', colour=discord.Colour.dark_purple(),description=f'''I am in **{len(bot.guilds)}** servers \nI am used by **{len(bot.users)}** users \nI am currently entertaining **{total}** users''')
-
+        #markdown = ['![Discord Bots](https://discordbots.org/api/widget/493470893331447820.svg)](https://discordbots.org/bot/493470893331447820']
         embed.set_thumbnail(url=f'''{bot.user.avatar_url}''')
         await ctx.send(embed=embed)
+        #await ctx.send(f'''{markdown}''')
 
 @bot.command(pass_context=True)
 async def joined_at(self, ctx, member: discord.Member = None):
@@ -160,7 +152,6 @@ async def ping(ctx):
         m = await ctx.send('**Pong!**')
         time = (m.created_at - t1).total_seconds() * 1000
         await m.edit(content='**Pong! Took: {}ms**'.format(int(time)))
-        await msg.edit(content=None, embed=embed)
 
 @bot.command()
 async def perms(ctx, user: discord.Member = None):
@@ -212,15 +203,43 @@ async def vote(ctx):
     embed.set_footer(text='Thanks for considering voting! - Gavyn S. ✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981')
     await ctx.send(embed=embed)
 
+@bot.command()
+async def feedback(ctx, * , feedback):
+    channel = bot.get_channel(515220018997231676)
+    embed = discord.Embed(title="Feedback Submission :robot:", colour=discord.Colour.red(), description=f'''Submitted by- {ctx.author}''')
+    embed.add_field(name="Feedback", value=feedback, inline=False)
+    embed.set_footer(text=f"From {ctx.guild.name} ({ctx.guild.id})")
+    await channel.send(embed=embed)
+    await ctx.send("Your Feedback Has Been Submitted")
+
+@bot.command()
+async def bug_report(ctx, * , feedback):
+    channel = bot.get_channel(515220018997231676)
+    embed = discord.Embed(title="Bug Submission :robot:", colour=discord.Colour.red(), description=f'''Submitted by- {ctx.author}''')
+    embed.add_field(name="Feedback", value=feedback, inline=False)
+    embed.set_footer(text=f"From {ctx.guild.name} ({ctx.guild.id})")
+    await channel.send(embed=embed)
+    await ctx.send("Your Feedback Has Been Submitted")
 
 
-#@bot.command()
-#async def servers(ctx):
-    #a = []
-    #for i in bot.guilds:
-    #a.append(i.name)
-        #await ctx.send(", ".join(a))
 
+@bot.command()
+async def servers(ctx):
+    a = []
+    for i in bot.guilds:
+        a.append(i.name)
+        await ctx.send(", ".join(a))
+
+
+@bot.command()
+async def bbff(ctx):
+    embed=discord.Embed(title='My Best Bot Friends Forever', colour=discord.Colour.red(), description='Add them to your server!')
+    embed.add_field(name='PewDiePie#7718', value='[Invite Here](https://discordapp.com/oauth2/authorize?client_id=508143906811019269&scope=bot&permissions=2146958847)')
+    embed.add_field(name='T-Series#7576', value='[Invite Here](https://discordapp.com/oauth2/authorize?client_id=500868806776979462&scope=bot&permissions=72710)')
+    embed.add_field(name='Touka#9248', value='[Invite Here](https://discordapp.com/oauth2/authorize?client_id=486093523024609292&scope=bot&permissions=2146958591)')
+    embed.add_field(name='Fusion#2584', value='[Invite Here](https://discordapp.com/api/oauth2/authorize?client_id=469204895946244106&permissions=8&scope=bot)')
+    embed.set_footer(text='Sincerely, Gavyn S. ✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981', icon_url = 'https://cdn.discordapp.com/emojis/519688994120794132.png?v=1')
+    await ctx.send (embed=embed)
 
 #gavyn only
 
@@ -247,9 +266,9 @@ async def warn(ctx, member: discord.Member, *, reason=None):
     ''': SoftWarn a person'''
     if ctx.author.guild_permissions.administrator:
         if reason is None:
-            await ctx.send(f'''{ctx.author.mention} \n
-A reason needed to warn
- ''')
+            emb=discord.Embed(title='Reason Please', colour=discord.Colour.blue(), description=f'''{ctx.author.mention} you need a reason to warn!''')
+            emb.set_footer(text='GBot')
+            await ctx.send(embed=emb)
         else:
             embed = discord.Embed(title='Warning', colour=discord.Colour.gold(),
                                   description=f'''You have been warned by {ctx.author.name} for {reason}''',
@@ -272,9 +291,9 @@ async def swarn(ctx, member: discord.Member, *, reason=None):
     ': Warn a person seriously'
     if ctx.author.guild_permissions.administrator:
         if reason is None:
-            await ctx.send(f'''{ctx.author.mention} \n
-A serious reason needed to warn
- ''')
+            emb=discord.Embed(title='Reason Please', colour=discord.Colour.blue(), description=f'''{ctx.author.mention} you need a serious reason to warn!''')
+            emb.set_footer(text='GBot')
+            await ctx.send(embed=emb)
         else:
             embed = discord.Embed(title='Warning', colour=discord.Colour.red(),
                                   description=f'''You have been warned by {ctx.author.name} for {reason}''',
@@ -370,13 +389,13 @@ async def mute(ctx, user: discord.Member):
             await ctx.send(embed=e)
         except KeyboardInterrupt:
             await ctx.send('User Not Found')
-
+            
 @bot.command()
 async def unmute(ctx, user: discord.Member):
         'Unmutes a User'
         try:
             if ctx.author.guild_permissions.administrator:
-                role = discord.utils.get(ctx.guild.roles, name='Muted')
+                role = discord.utils.get(ctx.guild.roles, name='muted')
                 await user.remove_roles(role)
                 await ctx.send('Unmuted {}'.format(user.name))
             else:
@@ -384,5 +403,6 @@ async def unmute(ctx, user: discord.Member):
             await ctx.send(embed=e)
         except discord.ext.commands.errors.BadArgument:
             await ctx.send('User Not Found')
+            
 
 bot.run(TOKEN)
