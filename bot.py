@@ -10,7 +10,7 @@ import random
 from discord.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
-bot = commands.Bot(description='BAsics can do a lot more.....', command_prefix=commands.when_mentioned_or('f!'))
+bot = commands.Bot(description='BAsics can do a lot more.....', command_prefix=commands.when_mentioned_or('G.'))
 
 
 class BAsics():
@@ -18,7 +18,7 @@ class BAsics():
     @commands.command()
     async def owner(self, ctx):
         ': Name of my creator'
-        await ctx.send('My owner is <@392337139309871106> ')
+        await ctx.send('My owner is <@293800689266851850> ')
         await ctx.message.delete()
 
     @commands.command()
@@ -33,7 +33,7 @@ class BAsics():
     @commands.command(pass_contex=True)
     async def invite(self, ctx):
         ': Invite me '
-        await ctx.send('https://discordapp.com/oauth2/authorize?client_id=394080286461263873&scope=bot&permissions=1543687243')
+        await ctx.send('https://discordapp.com/oauth2/authorize?client_id=493470893331447820&scope=bot')
 
     @commands.command()
     async def uptime(self,ctx):
@@ -340,7 +340,7 @@ async def on_ready():
     bot.load_extension("fun")
     bot.load_extension("search")
     bot.load_extension('ExampleRepl')
-    options = ('help via f!help', 'to !👑!Fire Feathers!👑!#8265', f'on {len(bot.guilds)} servers')
+    options = ('help via G.help', 'to Gavyn S. ✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981', f'on {len(bot.guilds)} servers')
     while True:
         await bot.change_presence(activity=discord.Streaming(name=random.choice(options), url='https://www.twitch.tv/cohhcarnage'))
         await asyncio.sleep(10)
