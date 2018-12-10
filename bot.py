@@ -134,43 +134,6 @@ class BAsics():
         os.system("rm SHIT.png")
 
 
-
-class BAmath():
-
-    @commands.command()
-    async def fact(self, ctx, num: int):
-        ': Get factorial of any number '
-        if num < 0:
-            await ctx.send('Sorry, factorial does not exist for negative numbers')
-        elif num == 0:
-            await ctx.send('The factorial of 0 is 1')
-        else:
-            from math import factorial
-            await ctx.send(f'''The factorial of {num} is : ```{factorial(num)}```''')
-    @commands.command()
-    async def add(self, ctx, num: int, num2: int):
-        ': Add two numbers'
-        await ctx.send(num + num2)
-
-    @commands.command()
-    async def factor(self, ctx, num: int):
-        ': Find prime factors '
-        await ctx.send('Factors are:')
-        i = 1
-        while i <= num:
-            k = 0
-            if (num % i) == 0:
-                j = 1
-                while j <= i:
-                    if (i % j) == 0:
-                        k = k + 1
-                    j = j + 1
-                if k == 2:
-                    await ctx.send('`1`')
-                    await ctx.send(f'''`{i}`''')
-            i = i + 1
-
-
 class BAdmin():
 
     @commands.command()
@@ -340,13 +303,12 @@ async def on_ready():
     bot.load_extension("fun")
     bot.load_extension("search")
     bot.load_extension('ExampleRepl')
-    options = ('help via f!help', 'to !👑!Fire Feathers!👑!#8265', f'on {len(bot.guilds)} servers')
+    options = ('help via G.help', 'to Gavyn S. ✓ᵛᵉʳᶦᶠᶦᵉᵈ#0981', f'on {len(bot.guilds)} servers')
     while True:
-        await bot.change_presence(activity=discord.Streaming(name=random.choice(options), url='https://www.twitch.tv/cohhcarnage'))
+        await bot.change_presence(activity=discord.Streaming(name=random.choice(options), url='https://www.twitch.tv/gavynlamar05'))
         await asyncio.sleep(10)
 
 
 bot.add_cog(BAdmin())
-bot.add_cog(BAmath())
 bot.add_cog(BAsics())
 bot.run(os.getenv('TOKEN'))
