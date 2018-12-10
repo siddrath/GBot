@@ -10,10 +10,10 @@ import random
 from discord.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
-bot = commands.Bot(description='BAsics can do a lot more.....', command_prefix=commands.when_mentioned_or('f!'))
+bot = commands.Bot(description='GBot', command_prefix=commands.when_mentioned_or('G.'))
 
 
-class BAsics():
+class Bot():
 
     @commands.command()
     async def owner(self, ctx):
@@ -348,5 +348,5 @@ async def on_ready():
 
 bot.add_cog(BAdmin())
 bot.add_cog(BAmath())
-bot.add_cog(BAsics())
+bot.add_cog(Bot())
 bot.run(os.getenv('TOKEN'))
