@@ -71,25 +71,7 @@ class Basics():
         embed.set_thumbnail(url=f'''{bot.user.avatar_url}''')
         await ctx.send(embed=embed)
         
-    @bot.command(pass_context=True, aliases=['whois'])
-    async def userinfo(ctx, member: discord.Member = None):
-
-        name="user",
-        if member is None:
-            member = ctx.author
-
-        e = discord.Embed(title=f"User: {member.name}",description=f"This is all the information I could find on {member.name}...",)
-        e.set_thumbnail(url=member.avatar_url_as(static_format="png"))
-        e.add_field(name="Name",value=member.name)
-        e.add_field(name="Discriminator",value=f"#{member.discriminator}")
-        e.add_field(name="ID",value=str(member.id))
-        e.add_field(name="Bot",value=str(member.bot).capitalize())
-        e.add_field(name="Highest Role",value=member.top_role.mention)
-        e.add_field(name="Join Position",value=f"#{sorted(member.guild.members, key=lambda m: m.joined_at).index(member) + 1}")
-        e.add_field(name="Created Account",value=member.created_at.strftime("%c"))
-        e.add_field(name="Joined This Server",value=member.joined_at.strftime("%c"))
-        e.add_field(name="Roles",value=f"{len(member.roles)-1} Roles: {', '.join([r.mention for r in member.roles if not r.is_default()])}")
-        await ctx.send(embed=e)
+    
 
    
 
@@ -282,6 +264,26 @@ async def code(ctx, command):
         embed = discord.Embed(title='Code', description="```py\n"+a+"```",color=discord.Colour.dark_purple())
         embed.set_thumbnail(url='https://scontent.fdel3-1.fna.fbcdn.net/v/t1.0-9/20155639_1952222755056855_6450365686627691750_n.png?oh=0b2c4ecd1409396b05f71c31dd07dd2d&oe=5AE7B998')
         await ctx.send(embed=embed)
+        
+@bot.command(pass_context=True, aliases=['whois'])
+async def userinfo(ctx, member: discord.Member = None):
+
+    name="user",
+    if member is None:
+        member = ctx.author
+
+    e = discord.Embed(title=f"User: {member.name}",description=f"This is all the information I could find on {member.name}...",)
+    e.set_thumbnail(url=member.avatar_url_as(static_format="png"))
+    e.add_field(name="Name",value=member.name)
+    e.add_field(name="Discriminator",value=f"#{member.discriminator}")
+    e.add_field(name="ID",value=str(member.id))
+    e.add_field(name="Bot",value=str(member.bot).capitalize())
+    e.add_field(name="Highest Role",value=member.top_role.mention)
+    e.add_field(name="Join Position",value=f"#{sorted(member.guild.members, key=lambda m: m.joined_at).index(member) + 1}")
+    e.add_field(name="Created Account",value=member.created_at.strftime("%c"))
+    e.add_field(name="Joined This Server",value=member.joined_at.strftime("%c"))
+    e.add_field(name="Roles",value=f"{len(member.roles)-1} Roles: {', '.join([r.mention for r in member.roles if not r.is_default()])}")
+    await ctx.send(embed=e)
 
 
 @bot.command(hidden=True)
