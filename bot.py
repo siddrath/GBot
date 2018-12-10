@@ -15,14 +15,6 @@ bot = commands.Bot(description='GBot...', command_prefix=commands.when_mentioned
 
 class Basics():
 
-    @commands.command(aliases=['cmds'])
-    async def commands(self, ctx):
-        member = ctx.author
-        embed = discord.Embed(title="Prefix", colour=discord.Colour.dark_blue(), description="G.")
-        embed.add_field(name='Commands', value='gbot \nserverinfo \nuserinfo \nhelp \njoined_at \nstats \nping \ninvme \navatar \npoll \nvote \nbug_report \nfeedback \nbbff')
-        embed.add_field(name='Admin/Mod Commands',value='ban \nkick \npurge \nswarn - soft warn \nwarn - reg. warn \n add_role \nmute \nunmute')
-        await ctx.send ('Check your :regional_indicator_d: :regional_indicator_m:')
-        await member.send(embed=embed)
 
     @commands.command()
     async def ping(self, ctx):
