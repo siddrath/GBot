@@ -63,7 +63,7 @@ class Basics():
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def count(self, ctx):
+    async def stats(self, ctx):
         ''': Get the info about my servers'''
         total = sum(1 for m in set(ctx.bot.get_all_members()) if m.status != discord.Status.offline)
         embed = discord.Embed(title=f'''Count''', colour=discord.Colour.dark_purple(),description=f'''I am in **{len(bot.guilds)}** servers \nI am used by **{len(bot.users)}** users \nI am currently entertaining **{total}** users''')
@@ -72,26 +72,56 @@ class Basics():
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def profile(self, ctx, member: discord.Member = None):
-        ''': See your profile'''
-        member = member or ctx.message.author
-        x = Image.open("pngs/FBI.png")
-        x.load()
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(member.avatar_url_as(format='png')) as r:
-                b = io.BytesIO(await r.read())
-        x1 = Image.open(b)
-        x1.load()
-        font_type = ImageFont.truetype('arialbd.ttf', 15)
-        font_type1 = ImageFont.truetype('arialbd.ttf', 14)
-        draw = ImageDraw.Draw(x)
-        x.paste(x1.resize((75, 75)), (195, 55))
-        draw.text(xy=(80, 166), text=member.name, fill=(0, 0, 0), font=font_type)
-        draw.text(xy=(75, 204), text=ctx.guild.name, fill=(0, 0, 0), font=font_type1)
-        draw.text(xy=(68, 223), text=member.top_role.name, fill=(0, 0, 0), font=font_type1)
-        x.save("profile.png")
-        await ctx.send(file=discord.File("profile.png"))
-        os.system("rm profile.png")
+    async def userinfo(self, ctx, member: discord.Member = None):
+            name = "user",
+        aliases = 'member', 'memberinfo', 'userinfo'
+        if member is None:
+        member = ctx.author
+
+        e = discord.Embed(
+            title=f"User: {member.name}", colour=discord.Colour.blue(),
+            description=f"This is all the information I could find on {member.name}...",
+        )
+        e.set_thumbnail(
+            url=member.avatar_url_as(static_format="png")
+        )
+        e.add_field(
+            name="Name",
+            value=member.name
+        )
+        e.add_field(
+            name="Discriminator",
+            value=f"#{member.discriminator}"
+        )
+        e.add_field(
+            name="ID",
+            value=str(member.id)
+        )
+        e.add_field(
+            name="Bot",
+            value=str(member.bot).capitalize()
+        )
+        e.add_field(
+            name="Highest Role",
+            value=member.top_role.mention
+        )
+        e.add_field(
+            name="Join Position",
+            value=f"#{sorted(member.guild.members, key=lambda m: m.joined_at).index(member) + 1}"
+        )
+        e.add_field(
+            name="Created Account",
+            value=member.created_at.strftime("%c")
+        )
+        e.add_field(
+            name="Joined This Server",
+            value=member.joined_at.strftime("%c")
+        )
+        e.add_field(
+            name="Roles",
+            value=f"{len(member.roles) - 1} Roles: {', '.join([r.mention for r in member.roles if not r.is_default()])}"
+        )
+        await ctx.send(embed=e)
 
     @commands.command()
     async def wanted(self, ctx, member: discord.Member = None):
